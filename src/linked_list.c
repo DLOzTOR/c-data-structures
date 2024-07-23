@@ -34,6 +34,29 @@ void int_linked_list_add(int_linked_list *list, int data)
   }
 }
 
+void int_linked_list_remove_last(int_linked_list *list)
+{
+  if (list->first == NULL)
+  {
+    return;
+  }
+  else if (list->first->next == NULL)
+  {
+    free(list->first);
+    list->first = NULL;
+  }
+  else
+  {
+    int_linked_list_node *current_node = list->first;
+    while (current_node->next->next != NULL)
+    {
+      current_node = current_node->next;
+    }
+    free(current_node->next);
+    current_node->next = NULL;
+  }
+}
+
 void int_linked_list_print(int_linked_list *list)
 {
   int_linked_list_node *current_node = list->first;
@@ -48,10 +71,13 @@ void linked_list_test()
 {
   int_linked_list int_list = {0};
   int_linked_list_add(&int_list, 0);
-  for (int i = 0; i < 10; i++)
+  for (int i = 1; i < 10; i++)
   {
     int_linked_list_add(&int_list, i);
   }
   int_linked_list_node *current_node = int_list.first;
+  int_linked_list_print(&int_list);
+  int_linked_list_remove_last(&int_list);
+  printf("remove last\n");
   int_linked_list_print(&int_list);
 }

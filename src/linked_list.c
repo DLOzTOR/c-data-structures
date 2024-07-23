@@ -57,6 +57,18 @@ void int_linked_list_remove_last(int_linked_list *list)
   }
 }
 
+int int_linked_list_cout(int_linked_list *list)
+{
+  int_linked_list_node *current_node = list->first;
+  int counter = 0;
+  while (current_node != NULL)
+  {
+    counter++;
+    current_node = current_node->next;
+  }
+  return counter;
+}
+
 void int_linked_list_print(int_linked_list *list)
 {
   int_linked_list_node *current_node = list->first;
@@ -77,7 +89,9 @@ void linked_list_test()
   }
   int_linked_list_node *current_node = int_list.first;
   int_linked_list_print(&int_list);
+  printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));
   int_linked_list_remove_last(&int_list);
   printf("remove last\n");
+  printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));
   int_linked_list_print(&int_list);
 }

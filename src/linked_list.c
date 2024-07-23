@@ -34,18 +34,24 @@ void int_linked_list_add(int_linked_list *list, int data)
   }
 }
 
+void int_linked_list_print(int_linked_list *list)
+{
+  int_linked_list_node *current_node = list->first;
+  while (current_node != NULL)
+  {
+    printf("%i\n", current_node->data);
+    current_node = current_node->next;
+  }
+}
+
 void linked_list_test()
 {
-  int_linked_list int_list={0};
+  int_linked_list int_list = {0};
   int_linked_list_add(&int_list, 0);
   for (int i = 0; i < 10; i++)
   {
     int_linked_list_add(&int_list, i);
   }
   int_linked_list_node *current_node = int_list.first;
-  while (current_node != NULL)
-  {
-    printf("%i\n", current_node->data);
-    current_node = current_node->next;
-  }
+  int_linked_list_print(&int_list);
 }

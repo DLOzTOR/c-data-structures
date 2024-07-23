@@ -12,6 +12,13 @@ struct int_linked_list
   int_linked_list_node *first;
 };
 
+int_linked_list_node *create_int_linked_list_node(int data)
+{
+  int_linked_list_node *t = malloc(sizeof(int_linked_list_node));
+  t->data = data;
+  return t;
+}
+
 void int_linked_list_add(int_linked_list *list, int data)
 {
   if (list->first != NULL)
@@ -22,8 +29,7 @@ void int_linked_list_add(int_linked_list *list, int data)
 
       current_node = current_node->next;
     }
-    current_node->next = malloc(sizeof(int_linked_list_node));
-    current_node->next->data = data;
+    current_node->next = create_int_linked_list_node(data);
     current_node->next->next = NULL;
   }
   else

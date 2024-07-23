@@ -131,7 +131,6 @@ void linked_list_test()
   {
     int_linked_list_add(&int_list, i);
   }
-  int_linked_list_node *current_node = int_list.first;
   int_linked_list_print(&int_list);
   int_linked_list_add_at(&int_list, 2, -100);
   printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));

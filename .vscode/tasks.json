@@ -1,0 +1,35 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+      {
+          "label": "build gcc",
+          "type": "shell",
+          "command": "gcc",
+          "args": [
+              "-g",
+              "src/main.c",
+              "-o",
+              "out/program.exe"
+          ],
+          "group": {
+              "kind": "",
+              "isDefault": true
+          },
+          
+          "problemMatcher": []
+      },
+      {
+          "label": "build and run shell gcc",
+          "type": "shell",
+          "command": "${workspaceFolder}/out/program.exe",
+            "args": [
+            ],
+          "group": {
+              "kind": "build",
+              "isDefault": true
+          },
+          "dependsOn": "build gcc",
+          "problemMatcher": []
+      }
+  ]
+}

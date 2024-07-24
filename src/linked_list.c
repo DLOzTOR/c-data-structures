@@ -20,6 +20,32 @@ int_linked_list_node *create_int_linked_list_node(int data)
   return t;
 }
 
+int_linked_list_node *int_linked_list_get_at(int_linked_list *list, size_t position)
+{
+  int_linked_list_node *current_node = list->first;
+  if (position == 0)
+  {
+    return list->first;
+  }
+  else
+  {
+    size_t current_none_index = 0;
+    while (current_node->next != NULL && current_none_index < position)
+    {
+      current_none_index++;
+      current_node = current_node->next;
+    }
+    if (current_node->next == NULL)
+    {
+      return NULL;
+    }
+    else
+    {
+      return current_node;
+    }
+  }
+}
+
 void int_linked_list_add(int_linked_list *list, int data)
 {
   if (list->first != NULL)
@@ -77,7 +103,7 @@ int int_linked_list_add_at(int_linked_list *list, size_t position, int data) // 
   }
 }
 
-void int_linked_list_remove_last(int_linked_list *list)
+void int_linked_list_remove_last(int_linked_list *list, int isFree)
 {
   if (list->first == NULL)
   {
@@ -85,7 +111,8 @@ void int_linked_list_remove_last(int_linked_list *list)
   }
   else if (list->first->next == NULL)
   {
-    free(list->first);
+    if (isFree)
+      free(list->first);
     list->first = NULL;
   }
   else
@@ -95,12 +122,13 @@ void int_linked_list_remove_last(int_linked_list *list)
     {
       current_node = current_node->next;
     }
-    free(current_node->next);
+    if (isFree)
+      free(current_node->next);
     current_node->next = NULL;
   }
 }
 
-int int_linked_list_remove_at(int_linked_list *list, size_t position) // -1 if can't add
+int int_linked_list_remove_at(int_linked_list *list, size_t position, int freeNode) // -1 if can't add
 {
   int_linked_list_node *current_node = list->first;
   if (list->first == NULL)
@@ -111,7 +139,8 @@ int int_linked_list_remove_at(int_linked_list *list, size_t position) // -1 if c
   {
     int_linked_list_node *t_node = list->first;
     list->first = list->first->next;
-    free(t_node);
+    if (freeNode)
+      free(t_node);
     return 0;
   }
   else
@@ -130,7 +159,8 @@ int int_linked_list_remove_at(int_linked_list *list, size_t position) // -1 if c
     {
       int_linked_list_node *t_node = current_node->next;
       current_node->next = current_node->next->next;
-      free(t_node);
+      if (freeNode)
+        free(t_node);
       return 0;
     }
   }
@@ -162,17 +192,19 @@ void linked_list_test()
 {
   int_linked_list int_list = {0};
   int_linked_list_add(&int_list, 0);
-  int_linked_list_add_at(&int_list, 0, -1);
   for (int i = 1; i < 10; i++)
   {
     int_linked_list_add(&int_list, i);
   }
+  int_linked_list_get_at(&int_list, 4)->data = -4;
+  printf("4 element is: %i.\n", int_linked_list_get_at(&int_list, 4)->data);
+  int_linked_list_add_at(&int_list, 0, -1);
   int_linked_list_print(&int_list);
   int_linked_list_add_at(&int_list, 2, -100);
   printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));
-  int_linked_list_remove_last(&int_list);
-  int_linked_list_remove_at(&int_list, 0);
-  int_linked_list_remove_at(&int_list, 4);
+  int_linked_list_remove_last(&int_list, 1);
+  int_linked_list_remove_at(&int_list, 0, 1);
+  int_linked_list_remove_at(&int_list, 4, 1);
   printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));
   int_linked_list_print(&int_list);
 }

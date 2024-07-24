@@ -100,6 +100,42 @@ void int_linked_list_remove_last(int_linked_list *list)
   }
 }
 
+int int_linked_list_remove_at(int_linked_list *list, size_t position) // -1 if can't add
+{
+  int_linked_list_node *current_node = list->first;
+  if (list->first == NULL)
+  {
+    return -1;
+  }
+  else if (position == 0)
+  {
+    int_linked_list_node *t_node = list->first;
+    list->first = list->first->next;
+    free(t_node);
+    return 0;
+  }
+  else
+  {
+    size_t current_none_index = 1;
+    while (current_node->next != NULL && current_none_index < position)
+    {
+      current_none_index++;
+      current_node = current_node->next;
+    }
+    if (current_node->next == NULL)
+    {
+      return -1;
+    }
+    else
+    {
+      int_linked_list_node *t_node = current_node->next;
+      current_node->next = current_node->next->next;
+      free(t_node);
+      return 0;
+    }
+  }
+}
+
 int int_linked_list_cout(int_linked_list *list)
 {
   int_linked_list_node *current_node = list->first;
@@ -135,7 +171,8 @@ void linked_list_test()
   int_linked_list_add_at(&int_list, 2, -100);
   printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));
   int_linked_list_remove_last(&int_list);
-  printf("remove last\n");
+  int_linked_list_remove_at(&int_list, 0);
+  int_linked_list_remove_at(&int_list, 4);
   printf("list nodes count: %i.\n", int_linked_list_cout(&int_list));
   int_linked_list_print(&int_list);
 }

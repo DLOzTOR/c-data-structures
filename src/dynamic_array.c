@@ -80,15 +80,43 @@ int int_dynamic_array_get(int_dynamic_array *d_arr, size_t index, int *status)
   return d_arr->data[index];
 }
 
+void int_dynamic_array_sort(int_dynamic_array *d_arr)
+{
+  int isSorted = 0, t;
+  while (isSorted == 0)
+  {
+    isSorted = 1;
+    for (size_t i = 0; i < d_arr->fullness - 1; i++)
+    {
+      if (d_arr->data[i] > d_arr->data[i + 1])
+      {
+        isSorted = 0;
+        t = d_arr->data[i];
+        d_arr->data[i] = d_arr->data[i + 1];
+        d_arr->data[i + 1] = t;
+      }
+    }
+  }
+}
+
 void int_dynamic_array_add_test()
 {
   int_dynamic_array *int_d_arr = create_int_dynamic_array(0);
-  for (size_t i = 0; i < 10; i++)
-  {
-    int_dynamic_array_add(int_d_arr, i);
-  }
-  int_dynamic_array_add_at(int_d_arr, -1, 4);
-  int_dynamic_array_remove(int_d_arr, 5);
+  // for (size_t i = 0; i < 10; i++)
+  // {
+  //   int_dynamic_array_add(int_d_arr, i);
+  // }
+  // int_dynamic_array_add_at(int_d_arr, -1, 4);
+  // int_dynamic_array_remove(int_d_arr, 5);
+  int_dynamic_array_add(int_d_arr, -1);
+  int_dynamic_array_add(int_d_arr, 3);
+  int_dynamic_array_add(int_d_arr, 2);
+  int_dynamic_array_add(int_d_arr, 4);
+  int_dynamic_array_add(int_d_arr, 6);
+  int_dynamic_array_add(int_d_arr, 5);
+  int_dynamic_array_add(int_d_arr, 7);
+  int_dynamic_array_add(int_d_arr, -18);
+  int_dynamic_array_sort(int_d_arr);
   int status;
   for (size_t i = 0; i < int_d_arr->fullness + 1; i++)
   {

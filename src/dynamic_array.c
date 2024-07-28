@@ -48,6 +48,17 @@ void int_dynamic_array_add(int_dynamic_array *d_arr, int data)
   d_arr->fullness++;
 }
 
+void int_dynamic_array_add_at(int_dynamic_array *d_arr, int data, size_t index)
+{
+  int_dynamic_array_if_full_increase(d_arr);
+  for (size_t i = d_arr->fullness; i > index; i--)
+  {
+    d_arr->data[i] = d_arr->data[i - 1];
+  }
+  d_arr->data[index] = data;
+  d_arr->fullness++;
+}
+
 int int_dynamic_array_get(int_dynamic_array *d_arr, size_t index, int *status)
 {
   if (index >= d_arr->fullness)
@@ -66,6 +77,7 @@ void int_dynamic_array_add_test()
   {
     int_dynamic_array_add(int_d_arr, i);
   }
+  int_dynamic_array_add_at(int_d_arr, -1, 4);
   int status;
   for (size_t i = 0; i < int_d_arr->fullness + 1; i++)
   {

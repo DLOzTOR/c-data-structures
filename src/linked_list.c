@@ -238,6 +238,17 @@ void int_linked_list_print(int_linked_list *list)
   }
 }
 
+void int_linked_list_free(int_linked_list *list)
+{
+  int_linked_list_node *current_node = list->first, *t;
+  while (current_node != NULL)
+  {
+    t = current_node->next;
+    free(current_node);
+    current_node = t;
+  }
+}
+
 void linked_list_test()
 {
   int_linked_list int_list = {0};
@@ -259,4 +270,5 @@ void linked_list_test()
   int_linked_list_sort(&int_list);
   printf("sorted\n");
   int_linked_list_print(&int_list);
+  int_linked_list_free(&int_list);
 }

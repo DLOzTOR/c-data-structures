@@ -98,6 +98,11 @@ void int_dynamic_array_sort(int_dynamic_array *d_arr)
     }
   }
 }
+void int_dynamic_array_free(int_dynamic_array *d_arr)
+{
+  free(d_arr->data);
+  free(d_arr);
+}
 
 void int_dynamic_array_add_test()
 {
@@ -123,4 +128,5 @@ void int_dynamic_array_add_test()
     int t = int_dynamic_array_get(int_d_arr, i, &status);
     printf("%d, status: %d\n", t, status);
   }
+  int_dynamic_array_free(int_d_arr);
 }

@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+
 typedef struct int_linked_list_node int_linked_list_node;
 struct int_linked_list_node
 {
